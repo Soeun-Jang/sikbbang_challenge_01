@@ -263,6 +263,7 @@ body {
   background-color: rgb(182, 224, 176);
   border-radius: 2px;
   border: solid 0.1px rgb(126, 152, 126);
+  display: inline-block;
 }
 
 .col {
@@ -303,4 +304,10 @@ body {
   font-size: 20px;
   color: darkgreen;
   font-weight: bold;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

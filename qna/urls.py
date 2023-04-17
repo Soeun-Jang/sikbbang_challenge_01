@@ -9,3 +9,5 @@ urlpatterns = [
     path('qna/edit/<int:pk>/', views.qna_edit_view, name='qna-edit'),
     path('qna/delete/<int:pk>/', views.qna_delete_view, name='qna-delete')
 ]
+
+
