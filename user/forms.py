@@ -10,7 +10,7 @@ class UserUpErro(forms.ModelForm):
     password2 = models.CharField()
     class Meta:
         model = PasswordForm
-        fields=['username','email','password','password2']
+        fields=['username','email','greeting','password','password2']
         widgets = {"password": PasswordInput(), "password2": PasswordInput()}
         error_messages={
             'email':{

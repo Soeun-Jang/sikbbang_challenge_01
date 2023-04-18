@@ -19,9 +19,11 @@ def signup(request):
             return render(request, 'user/signup.html', {"form": form})
     elif request.method == 'POST':
         form = UserUpErro(request.POST)
+        print(request.POST.get('greeting', ''))
         if form.is_valid():
             username = request.POST.get('username', None)
             email = request.POST.get('email', None)
+            greeting = request.POST.get('greeting', None)
             password = request.POST.get('password', None)
             password2 = request.POST.get('password2', None)
             if password != password2:
@@ -34,7 +36,7 @@ def signup(request):
                     return render(request, 'user/signup.html', {"form": form})
                 else:
                     UserModel.objects.create_user(
-                        username=username, password=password, email=email)
+                        username=username, password=password, email=email, greeting=greeting)
                     # mypage추가
                     create_id = UserModel.objects.get(username=username)
                     mypage = MyPageModel(user_key=create_id)
@@ -71,3 +73,18 @@ def signin(request):
 def logout(request):
     auth.logout(request)  # 인증 되어있는 정보를 없애기
     return redirect('/signin/')
+
+
+@login_required
+def user_follow(request, id): 
+    me = request.user
+    click_user = UserModel.objects.get(id=id)
+    #클릭한 사용자(id)와 현재 로그인 사용자(me)를 받아와서
+    #click_user(id)가 팔로우한 사용자 목록에 me가 있다면 me 제거
+    #me가 없다면 팔로우 목록에 me 추가
+    if me in click_user.followee.all():
+        click_user.followee.remove(request.user)
+    else:
+        click_user.followee.add(request.user)
+    return redirect('/main') 
+

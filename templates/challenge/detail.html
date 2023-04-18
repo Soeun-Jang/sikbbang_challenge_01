@@ -58,6 +58,11 @@
         <a class="edit_button" type="button" href="{% url 'challenge_app:delete_challenge' challenge.id %}">삭제</a>
         {% endif %}
         <a class="edit_button" type="button" href="{% url 'challenge_app:view_main' %}">목록</a>
+        <form action="{% url 'user-follow' challenge.id %}" method="post">
+            {% csrf_token %}
+
+            <button type="submit">팔로우</button>
+        </form>
     </div>
 </div>
 

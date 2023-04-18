@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from .models import MyPageModel
+from .models import MyPageModel, UserModel
 from .forms import *
 from qna.models import QnaModel
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-# Create your views here.
+from django.contrib.auth.decorators import login_required
 
 
 def mychallenge(request):
@@ -79,3 +79,22 @@ def mypage_list(request):
     pagelist3 = page_list(list3, page_limit, page3)
     lists = [pagelist1, pagelist2, pagelist3]
     return render(request, 'mypage/mypage_list.html', {'lists': lists})
+
+
+
+@login_required
+def follower_view(request):
+    if request.method == 'GET':
+        # exclude와 request.user.username 를 사용, 로그인 한 사용자를 제외한 모든 사용자를 불러와서 user_list에 담는다.
+        user_list = UserModel.objects.all().exclude(username=request.user.username)
+        #user/user_list.html템플릿에 user_list를 전달한다. 
+        return render(request, 'mypage/mypage_follower_list.html', {'user_list': user_list})
+    
+@login_required
+def following_view(request):
+    if request.method == 'GET':
+        # exclude와 request.user.username 를 사용, 로그인 한 사용자를 제외한 모든 사용자를 불러와서 user_list에 담는다.
+        user_list = UserModel.objects.all().exclude(username=request.user.username)
+        #user/user_list.html템플릿에 user_list를 전달한다. 
+        return render(request, 'mypage/mypage_follower_list.html', {'user_list': user_list})
+    

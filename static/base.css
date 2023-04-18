@@ -311,3 +311,7 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.follow_count {
+  background-color: #78997d;
+}
